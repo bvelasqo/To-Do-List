@@ -1,0 +1,46 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - dynamodb
+      - mysql
+      - cosmosdb
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      DYNAMODB_REGION: us-west-2
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: todolist
+      COSMOSDB_HOST: cosmosdb
+      COSMOSDB_PORT: 10255
+      COSMOSDB_USER: /dbs/todolist
+      COSMOSDB_PASSWORD: password
+    command: npm run dev
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+      - '8000:8000'
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: todolist
+
+  cosmosdb:
+    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmosdb-emulator
+    ports:
+      - '10255:10255'
+      - '10250:10250'
+    environment:
+      AZURE_COSMOS_EMULATOR_PARTITION_COUNT: 10
+      AZURE_COSMOS_EMULATOR_ENABLE_DATA_PERSISTENCE: true

@@ -1,0 +1,21 @@
+node_modules/
+.vscode/
+
+# Logs
+
+logs
+
+# Runtime data
+
+pids
+
+# ENV
+
+.env
+.env.local
+
+# Build
+
+dist/
+
+package-lock.json
