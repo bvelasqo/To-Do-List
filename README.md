@@ -1,6 +1,6 @@
 # To-Do-List-Backend
 
-Este es un proyecto de To-Do-List desarrollado por dos equipos de la universidad. El backend está construido en KOA y escrito en Typescript. Se utilizan servicios en la nube para almacenar información de tareas pendientes, información de usuarios y categorías de tareas.
+Este es un proyecto de To-Do-List desarrollado por dos equipos de la universidad. El backend está construido en KOA y escrito en Typescript. Se utilizan servicios en la nube para almacenar información de tareas pendientes y categorías de tareas.
 
 ## Tecnologías utilizadas
 
