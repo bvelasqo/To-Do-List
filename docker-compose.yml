@@ -11,12 +11,6 @@ services:
     environment:
       NODE_ENV: development
       PORT: 3000
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      DYNAMODB_REGION: us-west-2
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: todolist
       COSMOSDB_HOST: cosmosdb
       COSMOSDB_PORT: 10255
       COSMOSDB_USER: /dbs/todolist
@@ -24,17 +18,37 @@ services:
     command: npm run dev
 
   dynamodb:
-    image: amazon/dynamodb-local
+    image:  amazon/dynamodb-local
+    container_name: my-dynamodb
+    hostname: dynamodb
+    restart: always
+    volumes:
+      -  ./my-dynamodb-data:/home/dynamodblocal/data
     ports:
-      - '8000:8000'
-
-  mysql:
-    image: mysql:latest
-    ports:
-      - '3306:3306'
+      - 8000:8000
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath . "
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: todolist
+      - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+      - AWS_SECRET_ACCESS=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=my_store
+      - POSTGRES_USER=nico
+      - POSTGRES_PASSWORD=admin123
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5050:80
 
   cosmosdb:
     image: mcr.microsoft.com/cosmosdb/linux/azure-cosmosdb-emulator
