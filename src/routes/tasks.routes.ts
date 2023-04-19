@@ -8,7 +8,7 @@
 
 import Router from "koa-router";
 import { TaskController } from "../controllers/task.controller";
-import { Task } from "src/models/task.model";
+import { TaskInterface } from "src/models/task.model";
 
 //init
 const taskRouter = new Router();
@@ -29,7 +29,7 @@ taskRouter.get("/:id", async (ctx) => {
 
 taskRouter.post("/", async (ctx) => {
   const taskController = new TaskController();
-  const task = await taskController.createTask(ctx.request.body as Task);
+  const task = await taskController.createTask(ctx.request.body as TaskInterface);
   ctx.status = 200;
   ctx.body = task;
 });
@@ -38,7 +38,7 @@ taskRouter.put("/:id", async (ctx) => {
   const taskController = new TaskController();
   const task = await taskController.updateTask(
     ctx.params.id,
-    ctx.request.body as Task
+    ctx.request.body as TaskInterface
   );
   ctx.status = 200;
   ctx.body = task;

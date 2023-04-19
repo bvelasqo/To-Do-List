@@ -1,4 +1,4 @@
-import { Task } from "../models/task.model";
+import { TaskInterface } from "../models/task.model";
 import { TaskService } from "../services/task.service";
 /**
  * Task Controller
@@ -22,7 +22,7 @@ export class TaskController {
    * @example
    * curl -X GET http://localhost:3000/tasks
    */
-  public async getTasks(): Promise<Task[]> {
+  public async getTasks(): Promise<any> {
     return await this.taskService.getAll();
   }
 
@@ -37,7 +37,7 @@ export class TaskController {
    * @example
    * curl -X GET http://localhost:3000/tasks/1
    */
-  public async getTask(id: string): Promise<Task> {
+  public async getTask(id: string): Promise<TaskInterface> {
     return await this.taskService.getOne(id);
   }
 
@@ -57,7 +57,7 @@ export class TaskController {
    * "content": "Task 1 description"
    * }
    */
-  public async createTask(task: Task): Promise<Task> {
+  public async createTask(task: TaskInterface): Promise<TaskInterface> {
     return await this.taskService.create(task);
   }
 
@@ -80,8 +80,8 @@ export class TaskController {
    */
   public async updateTask(
     id: string,
-    task: Task
-  ): Promise<Task> {
+    task: TaskInterface
+  ): Promise<TaskInterface> {
     return await this.taskService.update(id, task);
   }
 
@@ -101,7 +101,7 @@ export class TaskController {
    * "content": "Task 1 description"
    * }
    */
-  public async deleteTask(id: string): Promise<Task> {
+  public async deleteTask(id: string): Promise<TaskInterface> {
     return await this.taskService.delete(id);
   }
 }

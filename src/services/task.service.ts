@@ -4,38 +4,20 @@
  * @implements {Service}
  */
 
-import { Task } from 'src/models/task.model'
+import { TaskModel, TaskInterface } from '../models/task.model'
 import { Service } from './Service.class'
 
-export class TaskService implements Service<Task> {
+export class TaskService implements Service<any> {
 	constructor() {}
 
 	/**
 	 * Get all tasks
 	 * @method getAll
-	 * @returns {Promise<Task[]>}
+	 * @returns {Promise<Docuanyment[]>}
 	 * @memberof TaskService
 	 */
-	public async getAll(): Promise<Task[]> {
-		// return await Task.findAll();
-		return [
-			{
-				id: '1',
-				title: 'Task 1',
-				content: 'Task 1 description',
-				userId: '2c4806e9-307a-4c6e-ba85-9ad1229e35a5',
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
-			{
-				id: '1',
-				title: 'Task 2',
-				content: 'Task 2 description',
-				userId: '2c4806e9-307a-4c6e-ba85-9ad1229e35a5',
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
-		]
+	public async getAll(): Promise<any[]> {
+		return await TaskModel.scan().exec();
 	}
 
 	/**
@@ -45,7 +27,7 @@ export class TaskService implements Service<Task> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async getOne(id: string): Promise<Task> {
+	public async getOne(id: string): Promise<TaskInterface> {
 		// return await Task.findByPk(id);
 		return {
 			id: '1',
@@ -64,16 +46,8 @@ export class TaskService implements Service<Task> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async create(task: Task): Promise<Task> {
-		// return await Task.create(Task);
-		return {
-			id: '1',
-			title: 'Task 1',
-			content: 'Task 1 description',
-			userId: '2c4806e9-307a-4c6e-ba85-9ad1229e35a5',
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		}
+	public async create(task: TaskInterface): Promise<any> {
+		return await TaskModel.create(task)
 	}
 
 	/**
@@ -84,16 +58,8 @@ export class TaskService implements Service<Task> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async update(id: string, task: Task): Promise<Task> {
-		// return await Task.update(task, { where: { id } });
-		return {
-			id: '1',
-			title: 'Task 1',
-			content: 'Task 1 description',
-			userId: '2c4806e9-307a-4c6e-ba85-9ad1229e35a5',
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		}
+	public async update(id: string, task: TaskInterface): Promise<any> {
+		return await TaskModel.update(task, { where: { id } });
 	}
 
 	/**
@@ -103,15 +69,7 @@ export class TaskService implements Service<Task> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async delete(id: string): Promise<Task> {
-		// return await Task.destroy({ where: { id } });
-		return {
-			id: '1',
-			title: 'Task 1',
-			content: 'Task 1 description',
-			userId: '2c4806e9-307a-4c6e-ba85-9ad1229e35a5',
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		}
+	public async delete(id: string): Promise<any> {
+		return await TaskModel.destroy({ where: { id } });
 	}
 }

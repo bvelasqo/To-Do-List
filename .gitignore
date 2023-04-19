@@ -19,3 +19,8 @@ pids
 dist/
 
 package-lock.json
+
+#db
+
+postgres_data
+my_dynamodb_data

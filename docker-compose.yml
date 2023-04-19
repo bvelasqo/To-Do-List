@@ -1,22 +1,5 @@
 version: '3'
 services:
-  app:
-    build: .
-    ports:
-      - '3000:3000'
-    depends_on:
-      - dynamodb
-      - mysql
-      - cosmosdb
-    environment:
-      NODE_ENV: development
-      PORT: 3000
-      COSMOSDB_HOST: cosmosdb
-      COSMOSDB_PORT: 10255
-      COSMOSDB_USER: /dbs/todolist
-      COSMOSDB_PASSWORD: password
-    command: npm run dev
-
   dynamodb:
     image:  amazon/dynamodb-local
     container_name: my-dynamodb
@@ -27,9 +10,6 @@ services:
     ports:
       - 8000:8000
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath . "
-    environment:
-      - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
-      - AWS_SECRET_ACCESS=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 
   postgres:
     image: postgres:13
@@ -51,7 +31,7 @@ services:
       - 5050:80
 
   cosmosdb:
-    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmosdb-emulator
+    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator
     ports:
       - '10255:10255'
       - '10250:10250'

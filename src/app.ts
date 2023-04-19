@@ -5,6 +5,8 @@ import cors from "koa2-cors";
 import mount from "koa-mount";
 import auth from "koa-basic-auth";
 import health from "./routes/health.routes";
+import tasks from "./routes/tasks.routes";
+import './shared/db/dynamodb' // para que dynamo corra XD
 
 //init
 const app = new koa();
@@ -20,6 +22,7 @@ app.use(mount("/health", auth({
 
 //Routes
 app.use(health.routes());
+app.use(mount('/tasks', tasks.routes()));
 
 //export server
 export default app;
