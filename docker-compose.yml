@@ -1,12 +1,16 @@
-version: '3'
+version: '3.1'
 services:
   dynamodb:
-    image:  amazon/dynamodb-local
+    image: amazon/dynamodb-local
     container_name: my-dynamodb
     hostname: dynamodb
     restart: always
+    environment:
+      - AWS_ACCESS_KEY_ID=foo
+      - AWS_SECRET_ACCESS_KEY=bar
+      - AWS_DEFAULT_REGION=us-east-1
     volumes:
-      -  ./my-dynamodb-data:/home/dynamodblocal/data
+      - ./my-dynamodb-data:/home/dynamodblocal/data
     ports:
       - 8000:8000
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath . "
@@ -14,11 +18,12 @@ services:
   postgres:
     image: postgres:13
     environment:
-      - POSTGRES_DB=my_store
-      - POSTGRES_USER=nico
-      - POSTGRES_PASSWORD=admin123
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: usersDB
+      POSTGRES_USER: dev
+      POSTGRES_PORT: 5433
     ports:
-      - 5432:5432
+      - "5433:5432"
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 

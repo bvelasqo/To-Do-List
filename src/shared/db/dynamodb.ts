@@ -5,12 +5,17 @@ import * as dynamoose from 'dynamoose'
 if (process.env.NODE_ENV === 'production') {
 	console.log("We'll add the production config after we're done testing locally ...")
 } else {
-	dynamoose.aws.sdk.config.update({
-		accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
-		secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-		region: 'us-east-1',
-	})
-
-	dynamoose.aws.ddb.local()
+	const ddb = new dynamoose.aws.ddb.DynamoDB({
+		"credentials": {
+			"accessKeyId": "foo",
+			"secretAccessKey": "bar"
+		},
+		"region": "us-east-1",
+		"endpoint": "http://localhost:8000"
+	});
+	dynamoose.aws.ddb.set(ddb);
+	console.log("DynamoDB is running locally")
+	
 }
+
 export default dynamoose

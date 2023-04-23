@@ -6,7 +6,18 @@ import mount from "koa-mount";
 import auth from "koa-basic-auth";
 import health from "./routes/health.routes";
 import tasks from "./routes/tasks.routes";
-import './shared/db/dynamodb' // para que dynamo corra XD
+import 'database/dynamodb' // para que dynamo corra XD
+import client from "./shared/db/postgres";
+
+// establish database connection
+client
+    .initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization:", err)
+    })
 
 //init
 const app = new koa();

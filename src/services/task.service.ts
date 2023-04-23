@@ -7,17 +7,17 @@
 import { TaskModel, TaskInterface } from '../models/task.model'
 import { Service } from './Service.class'
 
-export class TaskService implements Service<any> {
+export class TaskService implements Service<TaskInterface> {
 	constructor() {}
 
 	/**
 	 * Get all tasks
 	 * @method getAll
-	 * @returns {Promise<Docuanyment[]>}
+	 * @returns {Promise<Document[]>}
 	 * @memberof TaskService
 	 */
-	public async getAll(): Promise<any[]> {
-		return await TaskModel.scan().exec();
+	public async getAll(): Promise<TaskInterface[]> {
+		throw new Error("Method not implemented.");
 	}
 
 	/**
@@ -28,7 +28,6 @@ export class TaskService implements Service<any> {
 	 * @memberof TaskService
 	 */
 	public async getOne(id: string): Promise<TaskInterface> {
-		// return await Task.findByPk(id);
 		return {
 			id: '1',
 			title: 'Task 1',
@@ -46,8 +45,9 @@ export class TaskService implements Service<any> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async create(task: TaskInterface): Promise<any> {
-		return await TaskModel.create(task)
+	public async create(task: TaskInterface): Promise<TaskInterface> {
+		// return await TaskModel.create(task);
+		throw new Error("Method not implemented.");
 	}
 
 	/**
@@ -59,7 +59,8 @@ export class TaskService implements Service<any> {
 	 * @memberof TaskService
 	 */
 	public async update(id: string, task: TaskInterface): Promise<any> {
-		return await TaskModel.update(task, { where: { id } });
+		// return await TaskModel.update(task, { where: { id } });
+		throw new Error("Method not implemented.");
 	}
 
 	/**
@@ -70,6 +71,7 @@ export class TaskService implements Service<any> {
 	 * @memberof TaskService
 	 */
 	public async delete(id: string): Promise<any> {
-		return await TaskModel.destroy({ where: { id } });
+		// return await TaskModel.destroy({ where: { id } });
+		throw new Error("Method not implemented.");
 	}
 }

@@ -4,7 +4,7 @@
  * @implements {Service}
  */
 
-import { Category } from "src/models/category.model";
+import { Category } from "models/category.model";
 import { Service } from "./Service.class";
 
 export class CategoryService implements Service<Category> {
