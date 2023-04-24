@@ -8,8 +8,11 @@ import health from "./routes/health.routes";
 import tasks from "./routes/tasks.routes";
 import 'database/dynamodb' // para que dynamo corra XD
 import client from "./shared/db/postgres";
+import Router from "koa-router";
+import userRouter from "./routes/users.routes";
+import categoryRouter from "./routes/category.routes";
 
-// establish database connection
+// establish database connection and initialize data source FOR POSTGRES
 client
     .initialize()
     .then(() => {
@@ -21,7 +24,6 @@ client
 
 //init
 const app = new koa();
-
 //middlewares
 app.use(cors());
 app.use(loggerKoa());
@@ -32,8 +34,14 @@ app.use(mount("/health", auth({
 })));
 
 //Routes
+const router = new Router()
 app.use(health.routes());
-app.use(mount('/tasks', tasks.routes()));
+// router.use(mount('/login', login.routes()))
+router.use(mount('/task', tasks.routes()))
+router.use(mount('/user', userRouter.routes()))
+router.use(mount('/category', categoryRouter.routes()))
+// router.use(mount('/label', labelRouter.routes()))
+app.use(mount('/api/v1', router.routes()))
 
 //export server
 export default app;
