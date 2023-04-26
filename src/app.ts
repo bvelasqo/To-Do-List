@@ -33,17 +33,15 @@ app.use(bodyparser());
     pass: 'password',
 })));
 
-//Routes
-const router = new Router()
+// Routes
 
 // app.use(health.routes());
 // router.use(mount('/login', login.routes()))
-router.use(mount('/task', taskRouter.routes()))
-router.use(mount('/user', userRouter.routes()))
-router.use(mount('/category', categoryRouter.routes()))
+// Hay que modularizar las rutas en index
+app.use(mount('/api/v1/task', taskRouter.routes()))
+app.use(mount('/api/v1/user', userRouter.routes()))
+app.use(mount('/api/v1/category', categoryRouter.routes()))
 // router.use(mount('/label', labelRouter.routes()))
-app.use(mount('/api/v1', router.routes()))
-
 
 //export server
 export default app;
