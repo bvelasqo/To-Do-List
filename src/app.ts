@@ -5,7 +5,7 @@ import cors from "koa2-cors";
 import mount from "koa-mount";
 import auth from "koa-basic-auth";
 import health from "./routes/health.routes";
-import tasks from "./routes/tasks.routes";
+import taskRouter from "./routes/tasks.routes";
 import 'database/dynamodb' // para que dynamo corra XD
 import client from "./shared/db/postgres";
 import Router from "koa-router";
@@ -28,20 +28,22 @@ const app = new koa();
 app.use(cors());
 app.use(loggerKoa());
 app.use(bodyparser());
-app.use(mount("/health", auth({
+ app.use(mount("/health", auth({
     name: 'user',
     pass: 'password',
 })));
 
 //Routes
 const router = new Router()
-app.use(health.routes());
+
+// app.use(health.routes());
 // router.use(mount('/login', login.routes()))
-router.use(mount('/task', tasks.routes()))
+router.use(mount('/task', taskRouter.routes()))
 router.use(mount('/user', userRouter.routes()))
 router.use(mount('/category', categoryRouter.routes()))
 // router.use(mount('/label', labelRouter.routes()))
 app.use(mount('/api/v1', router.routes()))
+
 
 //export server
 export default app;

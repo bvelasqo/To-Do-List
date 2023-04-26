@@ -37,8 +37,8 @@ export class TaskController {
    * @example
    * curl -X GET http://localhost:3000/tasks/1
    */
-  public async getTask(id: string): Promise<TaskInterface> {
-    return await this.taskService.getOne(id);
+  public async getTask(sk: string, pk: string): Promise<TaskInterface> {
+    return await this.taskService.getOne(sk, pk);
   }
 
   /**
@@ -80,9 +80,10 @@ export class TaskController {
    */
   public async updateTask(
     id: string,
-    task: TaskInterface
+    task: TaskInterface,
+    sk: string
   ): Promise<TaskInterface> {
-    return await this.taskService.update(id, task);
+    return await this.taskService.update(id, task, sk);
   }
 
   /**
@@ -101,8 +102,8 @@ export class TaskController {
    * "content": "Task 1 description"
    * }
    */
-  public async deleteTask(id: string): Promise<TaskInterface> {
-    return await this.taskService.delete(id);
+  public async deleteTask(id: string, sk: string): Promise<TaskInterface> {
+    return await this.taskService.delete(id, sk);
   }
 }
 

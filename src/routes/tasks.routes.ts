@@ -16,11 +16,12 @@ taskRouter.get("/", async (ctx) => {
   ctx.body = tasks;
 });
 
-taskRouter.get("/:id", async (ctx) => {
-  const categoryId = ctx.params.categoryId;
+taskRouter.get("/:id/:otroId", async (ctx) => {
+  // const categoryId = ctx.params.categoryId;
   const taskID = ctx.params.id;
+  const skId = ctx.params.otroId;
   // const task = await taskController.getTasksByCategory(categoryId, taskID);
-  const task = await taskController.getTask(taskID);
+  const task = await taskController.getTask(taskID, skId);
   ctx.status = 200;
   ctx.body = task;
 });
@@ -31,17 +32,18 @@ taskRouter.post("/", async (ctx) => {
   ctx.body = task;
 });
 
-taskRouter.put("/:id", async (ctx) => {
+taskRouter.put("/:id/:otroId", async (ctx) => {
   const task = await taskController.updateTask(
     ctx.params.id,
-    ctx.request.body as TaskInterface
+    ctx.request.body as TaskInterface,
+    ctx.params.otroId
   );
   ctx.status = 200;
   ctx.body = task;
 });
 
-taskRouter.delete("/:id", async (ctx) => {
-  const task = await taskController.deleteTask(ctx.params.id);
+taskRouter.delete("/:id/:otroId", async (ctx) => {
+  const task = await taskController.deleteTask(ctx.params.id, ctx.params.otroId);
   ctx.status = 200;
   ctx.body = task;
 });

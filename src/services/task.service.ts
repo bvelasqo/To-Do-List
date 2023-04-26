@@ -16,8 +16,12 @@ export class TaskService implements Service<TaskInterface> {
 	 * @returns {Promise<Document[]>}
 	 * @memberof TaskService
 	 */
-	public async getAll(): Promise<TaskInterface[]> {
-		throw new Error("Method not implemented.");
+	public async getAll(): Promise<any[] | string> {
+		try {
+			return await TaskModel.scan().exec()
+		} catch (error) {
+			return 'Get operation failed.'
+		}
 	}
 
 	/**
@@ -27,14 +31,11 @@ export class TaskService implements Service<TaskInterface> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async getOne(id: string): Promise<TaskInterface> {
-		return {
-			id: '1',
-			title: 'Task 1',
-			content: 'Task 1 description',
-			userId: '2c4806e9-307a-4c6e-ba85-9ad1229e35a5',
-			createdAt: new Date(),
-			updatedAt: new Date(),
+	public async getOne(sk: string, pk: string): Promise<any> {
+		try {
+			return await TaskModel.get({ sk, pk })
+		} catch (error) {
+			return 'Get operation failed.'
 		}
 	}
 
@@ -45,9 +46,12 @@ export class TaskService implements Service<TaskInterface> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async create(task: TaskInterface): Promise<TaskInterface> {
-		// return await TaskModel.create(task);
-		throw new Error("Method not implemented.");
+	public async create(task: TaskInterface): Promise<any> {
+		try {
+			return await TaskModel.create(task)
+		} catch (error) {
+			return 'Create operation failed.'
+		}
 	}
 
 	/**
@@ -58,9 +62,12 @@ export class TaskService implements Service<TaskInterface> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async update(id: string, task: TaskInterface): Promise<any> {
-		// return await TaskModel.update(task, { where: { id } });
-		throw new Error("Method not implemented.");
+	public async update(pk: string, task: TaskInterface, sk: string): Promise<any> {
+		try {
+			return await TaskModel.update({ sk, pk }, task)
+		} catch (error) {
+			return 'Update operation failed.'
+		}
 	}
 
 	/**
@@ -70,8 +77,12 @@ export class TaskService implements Service<TaskInterface> {
 	 * @returns {Promise<Task>}
 	 * @memberof TaskService
 	 */
-	public async delete(id: string): Promise<any> {
-		// return await TaskModel.destroy({ where: { id } });
-		throw new Error("Method not implemented.");
+	public async delete(pk: string, sk: string): Promise<any> {
+		try {
+			await TaskModel.delete({ pk, sk })
+			return 'Delete operation was successful.'
+		} catch (error) {
+			return 'Delete operation failed.'
+		}
 	}
 }
