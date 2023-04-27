@@ -3,8 +3,8 @@
  */
 
 import Router from 'koa-router';
-import { LabelController } from '../controllers/label.controller';
-import { Label } from 'src/models/label.model';
+import { LabelController } from 'controllers/label.controller';
+import { Label } from 'models/label.model';
 
 //init
 const labelRouter = new Router();

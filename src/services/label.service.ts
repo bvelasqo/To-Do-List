@@ -4,7 +4,7 @@
  * @implements {Service}
  */
 
-import { Label } from 'src/models/label.model';
+import { Label } from 'models/label.model';
 import { Service } from './Service.class';
 
 export class LabelService implements Service<Label> {
