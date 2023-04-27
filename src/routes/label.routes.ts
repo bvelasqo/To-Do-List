@@ -4,7 +4,7 @@
 
 import Router from 'koa-router';
 import { LabelController } from 'controllers/label.controller';
-import { Label } from 'models/label.model';
+import { LabelInterface } from 'models/label.model';
 
 //init
 const labelRouter = new Router();
@@ -25,7 +25,7 @@ labelRouter.get('/:id', async (ctx) => {
 
 labelRouter.post('/', async (ctx) => {
 	const labelController = new LabelController();
-	const label = await labelController.createLabel(ctx.request.body as Label);
+	const label = await labelController.createLabel(ctx.request.body as LabelInterface);
 	ctx.status = 200;
 	ctx.body = label;
 });
@@ -34,7 +34,7 @@ labelRouter.put('/:id', async (ctx) => {
 	const labelController = new LabelController();
 	const label = await labelController.updateLabel(
 		ctx.params.id,
-		ctx.request.body as Label
+		ctx.request.body as LabelInterface
 	);
 	ctx.status = 200;
 	ctx.body = label;

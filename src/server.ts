@@ -1,6 +1,8 @@
 import { Server } from "http";
 import { AddressInfo } from "net";
 import app from "./app";
+import { config } from "dotenv";
+config();
 
 class ApiServer {
   server!: Server;

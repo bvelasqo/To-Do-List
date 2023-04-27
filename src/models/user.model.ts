@@ -27,4 +27,4 @@ export class UserModel implements User{
   createdAt: Date;
 }
 
-export const userRepository = client.getRepository(UserModel);
+export const userRepository = client?.getRepository(UserModel);

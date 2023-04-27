@@ -1,4 +1,4 @@
-import { Label } from '../models/label.model';
+import { LabelInterface } from '../models/label.model';
 import { LabelService } from '../services/label.service';
 /**
  * Label Controller
@@ -22,7 +22,7 @@ export class LabelController {
 	 * @example
 	 * curl -X GET http://localhost:3000/labels
 	 */
-	public async getLabels(): Promise<Label[]> {
+	public async getLabels(): Promise<any[]> {
 		return await this.labelService.getAll();
 	}
 
@@ -37,7 +37,7 @@ export class LabelController {
 	 * @example
 	 * curl -X GET http://localhost:3000/labels/1
 	 */
-	public async getLabel(id: string): Promise<Label> {
+	public async getLabel(id: string): Promise<any> {
 		return await this.labelService.getOne(id);
 	}
 
@@ -57,7 +57,7 @@ export class LabelController {
 	 * "description": "Label 1 description"
 	 * }
 	 */
-	public async createLabel(label: Label): Promise<Label> {
+	public async createLabel(label: LabelInterface): Promise<any> {
 		return await this.labelService.create(label);
 	}
 
@@ -78,7 +78,7 @@ export class LabelController {
 	 * "description": "Label 1 description"
 	 * }
 	 */
-	public async updateLabel(id: string, label: Label): Promise<Label> {
+	public async updateLabel(id: string, label: LabelInterface): Promise<any> {
 		return await this.labelService.update(id, label);
 	}
 
@@ -98,7 +98,7 @@ export class LabelController {
 	 * "description": "Label 1 description"
 	 * }
 	 */
-	public async deleteLabel(id: string): Promise<Label> {
+	public async deleteLabel(id: string): Promise<any> {
 		return await this.labelService.delete(id);
 	}
 }

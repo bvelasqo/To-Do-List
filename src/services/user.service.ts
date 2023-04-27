@@ -4,14 +4,15 @@
  * @implements {Service}
  */
 
-import { User, UserModel, userRepository } from "models/user.model";
+import { User, UserModel } from "models/user.model";
 import { Service } from "./Service.class";
+import client from "../shared/db/postgres";
 
 export class UserService implements Service<User> {
-  private userRepository = userRepository;
+  private userRepository = client.getRepository(UserModel);
 
   public async getAll(): Promise<User[]> {
-    return await this.userRepository.find();
+    return await this.userRepository.find({})
   }
 
   public async getOne(id: number): Promise<User> {
@@ -39,7 +40,7 @@ export class UserService implements Service<User> {
   }
 
   public async login(email: string, password: string): Promise<User> {
-    return await this.userRepository.findOne({
+    return this.userRepository.findOne({
       where: { 'email': email, 'password': password }
     });
   }
