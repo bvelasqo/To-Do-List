@@ -1,13 +1,15 @@
 // DynamoDb Connection. If is possible create a clase for this to connect to the database and display a client to manage the database.
 // No create class if exists any orm for dynamodb. Just connect the database.
 import * as dynamoose from 'dynamoose'
+import { config } from 'dotenv';
+config()
 
 const ddb = new dynamoose.aws.ddb.DynamoDB({
 	"credentials": {
 		"accessKeyId": process.env.AWS_ACCESS_KEY_ID,
 		"secretAccessKey": process.env.AWS_SECRET_ACCESS_KEY
 	},
-	"region": "us-east-1",
+	"region": process.env.AWS_REGION,
 });
 dynamoose.aws.ddb.set(ddb);
 console.log("Connected to DynamoDB")
