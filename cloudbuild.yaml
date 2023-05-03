@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  dir: 'path/to/app'
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['start']
+  dir: 'path/to/app'

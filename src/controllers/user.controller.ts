@@ -54,7 +54,7 @@ export class UserController {
    * @example
    * POST /users
    */
-  public async createUser(user: User): Promise<User> {
+  public async createUser(user: User): Promise<any> {
     return await this.userService.create(user);
   }
 

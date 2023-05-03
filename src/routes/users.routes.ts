@@ -4,6 +4,7 @@
 
 import Router from "koa-router";
 import { UserController } from "controllers/user.controller";
+import { User } from 'models/user.model';
 
 //init
 const userRouter = new Router();
@@ -11,7 +12,7 @@ const userRouter = new Router();
 userRouter.get("/", async (ctx) => {
   const { request, response } = ctx;
   const userController = new UserController();
-  const users = userController.getUsers();
+  const users = await userController.getUsers();
   response.status, ctx.status = 200
   response.body, ctx.body = users
 });
@@ -26,8 +27,8 @@ userRouter.get("/:id", async (ctx) => {
 
 userRouter.post("/", async (ctx) => {
   const userController = new UserController();
-  const user = ctx.body.user
-  const response = userController.createUser(user)
+  const user = ctx.request.body as User;
+  const response = await userController.createUser(user)
   ctx.status = 200;
   ctx.body = response;
 });

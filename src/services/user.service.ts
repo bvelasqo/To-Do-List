@@ -12,7 +12,7 @@ export class UserService implements Service<User> {
   private userRepository = client.getRepository(UserModel);
 
   public async getAll(): Promise<User[]> {
-    return await this.userRepository.find({})
+    return await this.userRepository.find()
   }
 
   public async getOne(id: number): Promise<User> {
